@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     SlidingTabLayout tabs;
     private NumberPicker numberPicker;
     ViewPagerAdapter adapter;
-    CharSequence Titles[]={"Perishable","Dairy","Other"};
+    CharSequence Titles[]={"Pens","Colors","Other"};
     int Numboftabs =3;
 
     @Override
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         tabs = (SlidingTabLayout) findViewById(R.id.tabs);
         tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
 
-        // Setting Custom Color for the Scroll bar indicator of the Tab View
+        // Setting Custom ItemColor for the Scroll bar indicator of the Tab View
         tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
             public int getIndicatorColor(int position) {
