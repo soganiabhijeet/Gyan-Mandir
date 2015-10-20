@@ -1,4 +1,4 @@
-package grocerylist.india.com.materialdesign;
+package grocerylist.india.com.materialdesign.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -19,36 +19,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "inventoryManager";
 
     //table name
-    private static final String TABLE_PRODUCT = "products";
-    private static final String TABLE_ITEM = "items";
-    private static final String TABLE_PRODUCT_ITEM = "product_item_mappings";
-    private static final String TABLE_ITEMCOLOR = "colors";
-    private static final String TABLE_ITEMSIZE = "sizes";
-    private static final String TABLE_CATEGORY = "categories";
-    private static final String TABLE_ORDER = "order_items";
+    public static final String TABLE_PRODUCT = "products";
+    public static final String TABLE_ITEM = "items";
+    public static final String TABLE_PRODUCT_ITEM = "product_item_mappings";
+    public static final String TABLE_ITEMCOLOR = "colors";
+    public static final String TABLE_ITEMSIZE = "sizes";
+    public static final String TABLE_CATEGORY = "categories";
+    public static final String TABLE_ORDER = "order_items";
 
     //columns name
-    private static final String PRODUCT_ID = "product_id";
-    private static final String PRODUCT_NAME = "product_name";
-    private static final String PRODUCT_COMPANY = "product_company";
-    private static final String PRODUCT_HAS_COLOR = "is_color";
-    private static final String PRODUCT_HAS_SIZE = "is_size";
-    private static final String CATEGORY_ID = "category_id";
-    private static final String ITEM_ID = "item_id";
-    private static final String ITEM_STOCK = "item_stock";
-    private static final String ITEM_COST_PRICE = "item_cost_price";
-    private static final String ITEM_SELLING_PRICE = "item_selling_price";
-    private static final String COLOR_ID = "color_id";
-    private static final String ORDER_ID = "order_id";
-    private static final String SIZE_ID = "size_id";
-    private static final String COLOR_NAME = "color_name";
-    private static final String SIZE_NAME = "size_name";
-    private static final String CATEGORY_NAME = "category_name";
+    public static final String PRODUCT_ID = "product_id";
+    public static final String PRODUCT_NAME = "product_name";
+    public static final String PRODUCT_COMPANY = "product_company";
+    public static final String PRODUCT_HAS_COLOR = "is_color";
+    public static final String PRODUCT_HAS_SIZE = "is_size";
+    public static final String CATEGORY_ID = "category_id";
+    public static final String ITEM_ID = "item_id";
+    public static final String ITEM_STOCK = "item_stock";
+    public static final String ITEM_COST_PRICE = "item_cost_price";
+    public static final String ITEM_SELLING_PRICE = "item_selling_price";
+    public static final String COLOR_ID = "color_id";
+    public static final String ORDER_ID = "order_id";
+    public static final String SIZE_ID = "size_id";
+    public static final String COLOR_NAME = "color_name";
+    public static final String SIZE_NAME = "size_name";
+    public static final String CATEGORY_NAME = "category_name";
     //private static final String ORDER_NAME = "category_name";
-    private static final String ORDER_ITEM_SOLD = "order_sold";
-    private static final String ORDER_ITEM_BOUGHT = "order_bought";
-    private static final String ORDER_SELLING_PRICE = "order_price";
-    private static final String ORDER_DATE = "order_date";
+    public static final String ORDER_ITEM_SOLD = "order_sold";
+    public static final String ORDER_ITEM_BOUGHT = "order_bought";
+    public static final String ORDER_SELLING_PRICE = "order_price";
+    public static final String ORDER_DATE = "order_date";
 
 
     //table create statements
@@ -62,7 +62,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE_ITEMCOLOR = "CREATE TABLE "
             + TABLE_ITEMCOLOR + "(" + COLOR_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLOR_NAME
-            + " TEXT NOT NUL" + ")";
+            + " TEXT NOT NULL" + ")";
 
     private static final String CREATE_TABLE_PRODUCT = "CREATE TABLE "
             + TABLE_PRODUCT + "(" + PRODUCT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + PRODUCT_NAME
