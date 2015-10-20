@@ -19,4 +19,10 @@
     <string name="title_messages">Messages</string>
     <string name="title_friends">Friends</string>
     <string name="title_home">Home</string>
+    <string name="tab_pen">Pen</string>
+    <string name="tab_canvas">Canvas</string>
+    <string name="tab_color">Color</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

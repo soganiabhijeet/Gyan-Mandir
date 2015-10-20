@@ -1,0 +1,15 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="grocerylist.india.com.materialdesign.fragment.ProductListFragment">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/products_recyclerview"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</FrameLayout>
