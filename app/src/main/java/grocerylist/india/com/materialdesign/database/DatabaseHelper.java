@@ -3,6 +3,7 @@ package grocerylist.india.com.materialdesign.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by abhijeetsogani on 10/20/15.
@@ -49,7 +50,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String ORDER_ITEM_BOUGHT = "order_bought";
     public static final String ORDER_SELLING_PRICE = "order_price";
     public static final String ORDER_DATE = "order_date";
-
+    public static final String PRODUCT_COST_PRICE = "product_cost_price";
+    public static final String PRODUCT_SELLING_PRICE = "product_selling_price";
 
     //table create statements
     private static final String CREATE_TABLE_CATEGORY = "CREATE TABLE "
@@ -58,7 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE_ITEMSIZE = "CREATE TABLE "
             + TABLE_ITEMSIZE + "(" + SIZE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + SIZE_NAME
-            + " TEXT NOT NUL" + ")";
+            + " TEXT NOT NULL" + ")";
 
     private static final String CREATE_TABLE_ITEMCOLOR = "CREATE TABLE "
             + TABLE_ITEMCOLOR + "(" + COLOR_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLOR_NAME
@@ -66,7 +68,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE_PRODUCT = "CREATE TABLE "
             + TABLE_PRODUCT + "(" + PRODUCT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + PRODUCT_NAME
-            + " TEXT ," + PRODUCT_COMPANY + " TEXT ," + CATEGORY_ID + " INTEGER ," +
+            + " TEXT ," + PRODUCT_COMPANY + " TEXT ," + CATEGORY_ID + " INTEGER ," + PRODUCT_COST_PRICE + " INTEGER ," + PRODUCT_SELLING_PRICE + " INTEGER ," +
             PRODUCT_HAS_COLOR + " INTEGER ," + PRODUCT_HAS_SIZE + " INTEGER)";
 
     private static final String CREATE_TABLE_ITEM = "CREATE TABLE "
@@ -76,7 +78,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE_PRODUCT_ITEM = "CREATE TABLE "
             + TABLE_PRODUCT_ITEM + "(" + ITEM_ID + " INTEGER PRIMARY KEY ," + PRODUCT_ID
-            + " INTEGER PRIMARY KEY)";
+            + " INTEGER )";
 
     private static final String CREATE_TABLE_ORDER_ITEMS = "CREATE TABLE "
             + TABLE_ORDER + "(" + ORDER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -91,6 +93,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        Log.d(LOG,"onCreate");
+        Log.d(LOG,"CREATE_TABLE_PRODUCT: "+CREATE_TABLE_PRODUCT);
         db.execSQL(CREATE_TABLE_CATEGORY);
         db.execSQL(CREATE_TABLE_ITEMSIZE);
         db.execSQL(CREATE_TABLE_ITEMCOLOR);
@@ -103,6 +107,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.d(LOG,"onUpgrade");
         // on upgrade drop older tables
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ITEMCOLOR);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ITEMSIZE);

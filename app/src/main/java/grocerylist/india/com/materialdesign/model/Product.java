@@ -10,6 +10,8 @@ public class Product {
     private Boolean hasColor;
     private Boolean hasSize;
     private Category category;
+    private Integer sellingPrice;
+    private Integer costPrice;
 
     public int getProductId() {
         return productId;
@@ -57,5 +59,35 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Integer getSellingPrice() {
+        return sellingPrice;
+    }
+
+    public void setSellingPrice(Integer sellingPrice) {
+        this.sellingPrice = sellingPrice;
+    }
+
+    public Integer getCostPrice() {
+        return costPrice;
+    }
+
+    public void setCostPrice(Integer costPrice) {
+        this.costPrice = costPrice;
+    }
+
+    public Product(String productName, String companyName, Boolean hasColor, Boolean hasSize, Category category, Integer sellingPrice, Integer costPrice) {
+        this.productName = productName;
+        this.companyName = companyName;
+        this.hasColor = hasColor;
+        this.hasSize = hasSize;
+        this.category = category;
+        this.sellingPrice = sellingPrice;
+        this.costPrice = costPrice;
+    }
+    public Product()
+    {
+
     }
 }

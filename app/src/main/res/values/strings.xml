@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MaterialDesign</string>
+    <string name="app_name">GyanMandir</string>
     <string name="action_settings">Settings</string>
     <string name="action_search">Search</string>
     <string name="drawer_open">Open</string>
@@ -25,4 +25,7 @@
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_search">SearchActivity</string>
+
+    <string name="hello_world">Hello world!</string>
 </resources>
