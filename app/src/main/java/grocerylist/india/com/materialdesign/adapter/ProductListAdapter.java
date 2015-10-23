@@ -3,6 +3,7 @@ package grocerylist.india.com.materialdesign.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private List<Product> products = new ArrayList<>();
     private static Context mContext;
     private LayoutInflater layoutInflater;
+    String TAG="ProductListAdapter";
 
     public ProductListAdapter(Context context, List<Product> products) {
         mContext = context;
@@ -31,12 +33,14 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public ProductViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        Log.d(TAG,"onCreateViewHolder");
         View view = layoutInflater.inflate(R.layout.product_list_item, viewGroup, false);
         return new ProductViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
+        Log.d(TAG,"onBindViewHolder");
         ProductViewHolder holder = (ProductViewHolder) viewHolder;
         holder.productPrice.setText(products.get(i).getSellingPrice().toString());
         holder.productCompanyName.setText(products.get(i).getCompanyName());
@@ -45,6 +49,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
+        Log.d(TAG,"getItemCount "+ products.size());
         return products.size();
     }
 

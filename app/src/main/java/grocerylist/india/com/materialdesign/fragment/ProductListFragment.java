@@ -52,6 +52,7 @@ public class ProductListFragment extends android.support.v4.app.Fragment impleme
 
     // TODO: Rename and change types and number of parameters
     public static ProductListFragment newInstance(int id, String mTitle) {
+        Log.d("ProductListFragment", "newInstance : tab" );
         ProductListFragment fragment = new ProductListFragment();
         Bundle args = new Bundle();
         args.putInt(TAB_ID, id);
@@ -61,6 +62,7 @@ public class ProductListFragment extends android.support.v4.app.Fragment impleme
     }
 
     public static ProductListFragment newInstance(String searchProduct) {
+        Log.d("ProductListFragment", "newInstance : search" );
         ProductListFragment fragment = new ProductListFragment();
         Bundle args = new Bundle();
         args.putString(SEARCH_QUERY, searchProduct);
@@ -75,6 +77,7 @@ public class ProductListFragment extends android.support.v4.app.Fragment impleme
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("ProductListFragment", "onCreate");
         if (getArguments() != null) {
             initializeAdapter();
             openAdapter();
@@ -88,6 +91,7 @@ public class ProductListFragment extends android.support.v4.app.Fragment impleme
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d("ProductListFragment", "onCreateView");
         View view = inflater.inflate(R.layout.fragment_product_list, container, false);
         initViews(view);
         return view;
@@ -151,8 +155,9 @@ public class ProductListFragment extends android.support.v4.app.Fragment impleme
     }
 
     public void updateListSearch(String searchText) {
-        this.searchQuery = searchText;
+        Log.d("ProductListFragment", "updateListSearch" );
         products.clear();
+        this.searchQuery = searchText;
         products = (ArrayList<Product>) productAdapter.getProductListForSearch(searchText);
         productListAdapter.notifyDataSetChanged();
     }
