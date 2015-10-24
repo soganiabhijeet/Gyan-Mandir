@@ -20,6 +20,10 @@
             android:name=".activity.SearchActivity"
             android:label="@string/title_activity_search" >
         </activity>
+        <activity
+            android:name=".drawer.FragmentDrawer"
+            android:label="@string/title_activity_fragment_drawer" >
+        </activity>
     </application>
 
 </manifest>

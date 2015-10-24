@@ -52,7 +52,7 @@ public class ProductListFragment extends android.support.v4.app.Fragment impleme
 
     // TODO: Rename and change types and number of parameters
     public static ProductListFragment newInstance(int id, String mTitle) {
-        Log.d("ProductListFragment", "newInstance : tab" );
+        Log.d("ProductListFragment", "newInstance : tab");
         ProductListFragment fragment = new ProductListFragment();
         Bundle args = new Bundle();
         args.putInt(TAB_ID, id);
@@ -62,7 +62,7 @@ public class ProductListFragment extends android.support.v4.app.Fragment impleme
     }
 
     public static ProductListFragment newInstance(String searchProduct) {
-        Log.d("ProductListFragment", "newInstance : search" );
+        Log.d("ProductListFragment", "newInstance : search");
         ProductListFragment fragment = new ProductListFragment();
         Bundle args = new Bundle();
         args.putString(SEARCH_QUERY, searchProduct);
@@ -105,29 +105,28 @@ public class ProductListFragment extends android.support.v4.app.Fragment impleme
     }
 
     private void initViews(View view) {
-        if (title != null)
-            initializeProductList(title);
-        products=new ArrayList<>();
-            productsRecyclerView = (RecyclerView) view.findViewById(R.id.products_recyclerview);
-            linearLayoutManager = new LinearLayoutManager(getActivity());
-            productsRecyclerView.setLayoutManager(linearLayoutManager);
-            productListAdapter = new ProductListAdapter(getActivity(), products);
-            productsRecyclerView.setAdapter(productListAdapter);
-
+        productsRecyclerView = (RecyclerView) view.findViewById(R.id.products_recyclerview);
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        productsRecyclerView.setLayoutManager(linearLayoutManager);
+        productListAdapter = new ProductListAdapter(getActivity(), products);
+        productsRecyclerView.setAdapter(productListAdapter);
+        initializeProductList(title);
     }
 
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
 
     private void initializeProductList(String category) {
+        if (title != null) {
+            products = new ArrayList<>();
+            Log.d(TAG, "category :" + category);
+            if (categoryAdapter.getCategoryFromName(category) != null) {
+                products = (ArrayList<Product>) productAdapter.getProductListForCategory(categoryAdapter.getCategoryFromName(category));
+                //TODO stop creating new adapter everytime
+                productListAdapter = new ProductListAdapter(getActivity(), products);
+                productsRecyclerView.setAdapter(productListAdapter);
+                Log.d(TAG, "products size for category :" + products.size());
+            }
+        }
 
-        Log.d(TAG, "category :" + category);
-        if (categoryAdapter.getCategoryFromName(category) != null)
-            products = (ArrayList<Product>) productAdapter.getProductListForCategory(categoryAdapter.getCategoryFromName(category));
     }
 
     @Override
@@ -155,11 +154,12 @@ public class ProductListFragment extends android.support.v4.app.Fragment impleme
     }
 
     public void updateListSearch(String searchText) {
-        Log.d("ProductListFragment", "updateListSearch" );
-        products.clear();
+        products = new ArrayList<>();
+        Log.d("ProductListFragment", "updateListSearch");
         this.searchQuery = searchText;
         products = (ArrayList<Product>) productAdapter.getProductListForSearch(searchText);
-        productListAdapter.notifyDataSetChanged();
+        productListAdapter = new ProductListAdapter(getActivity(), products);
+        productsRecyclerView.setAdapter(productListAdapter);
     }
 
     /**

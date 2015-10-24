@@ -3,10 +3,12 @@ package grocerylist.india.com.materialdesign.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import grocerylist.india.com.materialdesign.R;
@@ -14,13 +16,14 @@ import grocerylist.india.com.materialdesign.adapter.ViewPagerAdapter;
 import grocerylist.india.com.materialdesign.database.DatabaseHandler;
 import grocerylist.india.com.materialdesign.database.adapter.CategoryAdapter;
 import grocerylist.india.com.materialdesign.database.adapter.ProductAdapter;
+import grocerylist.india.com.materialdesign.drawer.FragmentDrawer;
 import grocerylist.india.com.materialdesign.model.Product;
 import grocerylist.india.com.materialdesign.slidingtab.SlidingTabLayout;
 
 /**
  * Created by abhijeetsogani on 9/2/15.
  */
-public class MainActivity extends AppCompatActivity implements DatabaseHandler {
+public class MainActivity extends AppCompatActivity implements DatabaseHandler , FragmentDrawer.FragmentDrawerListener {
     private Toolbar mToolbar;
     ViewPager pager;
     SlidingTabLayout tabs;
@@ -28,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements DatabaseHandler {
     private String DATABASE_SAVED = "is_database_saved";
     CategoryAdapter categoryAdapter;
     ProductAdapter productAdapter;
-
+    private FragmentDrawer drawerFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,10 @@ public class MainActivity extends AppCompatActivity implements DatabaseHandler {
 
         // Setting the ViewPager For the SlidingTabsLayout
         tabs.setViewPager(pager);
+        drawerFragment = (FragmentDrawer)
+                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
+        drawerFragment.setDrawerListener(this);
     }
 
     @Override
@@ -169,4 +176,8 @@ public class MainActivity extends AppCompatActivity implements DatabaseHandler {
         productAdapter.close();
     }
 
+    @Override
+    public void onDrawerItemSelected(View view, int position) {
+        Toast.makeText(this,"position "+position,Toast.LENGTH_SHORT).show();
+    }
 }

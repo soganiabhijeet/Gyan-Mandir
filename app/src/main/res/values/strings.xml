@@ -5,15 +5,15 @@
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
-    <string name="nav_item_home">Home</string>
-    <string name="nav_item_friends">Friends</string>
-    <string name="nav_item_notifications">Messages</string>
+    <string name="nav_item_today_sales">Get Todays Sales</string>
+    <string name="nav_item_add_product">Add a product</string>
+    <string name="nav_item_color_pallete">Get Color palette</string>
 
     <!-- navigation drawer item labels  -->
     <string-array name="nav_drawer_labels">
-        <item>@string/nav_item_home</item>
-        <item>@string/nav_item_friends</item>
-        <item>@string/nav_item_notifications</item>
+        <item>@string/nav_item_today_sales</item>
+        <item>@string/nav_item_add_product</item>
+        <item>@string/nav_item_color_pallete</item>
     </string-array>
 
     <string name="title_messages">Messages</string>
@@ -28,4 +28,5 @@
     <string name="title_activity_search">SearchActivity</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_fragment_drawer">FragmentDrawer</string>
 </resources>
