@@ -1,0 +1,115 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:float="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="grocerylist.india.com.materialdesign.activity.AddProductActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <RelativeLayout
+        android:id="@+id/product_relative"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
+
+        <com.wrapp.floatlabelededittext.FloatLabeledEditText
+            android:id="@+id/product_name_container"
+            android:layout_width="match_parent"
+            float:fletTextAppearance="@style/floatlabelededittext"
+            android:layout_height="wrap_content"
+            float:fletPadding="10dp">
+
+            <EditText
+                android:id="@+id/product_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Product Name" />
+        </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+        <com.wrapp.floatlabelededittext.FloatLabeledEditText
+            android:id="@+id/product_selling_price_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            float:fletTextAppearance="@style/floatlabelededittext"
+            android:layout_below="@id/product_name_container"
+            float:fletPadding="10dp">
+
+            <EditText
+                android:id="@+id/product_selling_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Selling Price"
+                android:inputType="number" />
+
+
+        </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+        <com.wrapp.floatlabelededittext.FloatLabeledEditText
+            android:id="@+id/product_cost_price_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            float:fletTextAppearance="@style/floatlabelededittext"
+            android:layout_below="@id/product_name_container"
+            float:fletPadding="10dp">
+
+            <EditText
+                android:id="@+id/product_cost_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Cost Price"
+                android:inputType="number" />
+
+
+        </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+        <com.wrapp.floatlabelededittext.FloatLabeledEditText
+            android:id="@+id/product_company_name_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            float:fletTextAppearance="@style/floatlabelededittext"
+            android:layout_below="@id/product_cost_price_container"
+            float:fletPadding="10dp">
+
+            <EditText
+                android:id="@+id/product_company"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Product Company" />
+        </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/product_has_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/product_company_name_container"
+            android:layout_marginTop="10dp"
+            android:text="Has Size" />
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/product_has_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/product_has_size"
+            android:layout_marginTop="10dp"
+            android:text="Has Color" />
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/add_product_button"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:text="Add Product"
+        android:textColor="@color/windowBackground" />
+
+</RelativeLayout>

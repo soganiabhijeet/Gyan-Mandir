@@ -1,8 +1,8 @@
 package grocerylist.india.com.materialdesign.fragment;
 
-import android.app.Fragment;
-import android.net.Uri;
+import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,38 +17,35 @@ import grocerylist.india.com.materialdesign.adapter.ProductListAdapter;
 import grocerylist.india.com.materialdesign.database.DatabaseHandler;
 import grocerylist.india.com.materialdesign.database.adapter.CategoryAdapter;
 import grocerylist.india.com.materialdesign.database.adapter.ProductAdapter;
+import grocerylist.india.com.materialdesign.dialog.SelectColorDialog;
 import grocerylist.india.com.materialdesign.model.Product;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ProductListFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ProductListFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class ProductListFragment extends android.support.v4.app.Fragment implements DatabaseHandler {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
+public class ProductListFragment extends Fragment implements DatabaseHandler, ProductListAdapter.OnAddToCartClicked {
     // TODO: Rename and change types of parameters
     public static final String TAB_ID = "id";
     public static final String TAB_TITLE = "title";
     public static final String SEARCH_QUERY = "search_query";
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
     private int id;
     private String TAG = "ProductListFragment";
     private String title;
     private String searchQuery;
     private LinearLayoutManager linearLayoutManager;
     private RecyclerView productsRecyclerView;
-    private OnFragmentInteractionListener mListener;
+    private OnProductCLickedListener mListener;
     private ProductListAdapter productListAdapter;
     private ArrayList<Product> products;
     private ProductAdapter productAdapter;
     private CategoryAdapter categoryAdapter;
 
+
+    public ProductListFragment() {
+        // Required empty public constructor
+    }
 
     // TODO: Rename and change types and number of parameters
     public static ProductListFragment newInstance(int id, String mTitle) {
@@ -68,10 +65,6 @@ public class ProductListFragment extends android.support.v4.app.Fragment impleme
         args.putString(SEARCH_QUERY, searchProduct);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public ProductListFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -98,17 +91,27 @@ public class ProductListFragment extends android.support.v4.app.Fragment impleme
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onButtonPressed(Product product) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            Log.d(TAG, "Product hasColor " + product.getHasColor());
+            if (product.getHasColor()) {
+                showColorDialog();
+            } else {
+                mListener.onProductClicked(product.getProductId());
+            }
         }
+    }
+
+    private void showColorDialog() {
+        SelectColorDialog selectColorDialogDialog = new SelectColorDialog();
+        selectColorDialogDialog.show(getFragmentManager(), "colors_dialog");
     }
 
     private void initViews(View view) {
         productsRecyclerView = (RecyclerView) view.findViewById(R.id.products_recyclerview);
         linearLayoutManager = new LinearLayoutManager(getActivity());
         productsRecyclerView.setLayoutManager(linearLayoutManager);
-        productListAdapter = new ProductListAdapter(getActivity(), products);
+        productListAdapter = new ProductListAdapter(getActivity(), products, this);
         productsRecyclerView.setAdapter(productListAdapter);
         initializeProductList(title);
     }
@@ -121,13 +124,24 @@ public class ProductListFragment extends android.support.v4.app.Fragment impleme
             if (categoryAdapter.getCategoryFromName(category) != null) {
                 products = (ArrayList<Product>) productAdapter.getProductListForCategory(categoryAdapter.getCategoryFromName(category));
                 //TODO stop creating new adapter everytime
-                productListAdapter = new ProductListAdapter(getActivity(), products);
+                productListAdapter = new ProductListAdapter(getActivity(), products, this);
                 productsRecyclerView.setAdapter(productListAdapter);
                 Log.d(TAG, "products size for category :" + products.size());
             }
         }
-
     }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (OnProductCLickedListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
 
     @Override
     public void initializeAdapter() {
@@ -158,23 +172,20 @@ public class ProductListFragment extends android.support.v4.app.Fragment impleme
         Log.d("ProductListFragment", "updateListSearch");
         this.searchQuery = searchText;
         products = (ArrayList<Product>) productAdapter.getProductListForSearch(searchText);
-        productListAdapter = new ProductListAdapter(getActivity(), products);
+        productListAdapter = new ProductListAdapter(getActivity(), products, this);
         productsRecyclerView.setAdapter(productListAdapter);
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
+    @Override
+    public void onAddToCartCLicked(Product product) {
+        Log.e(TAG, "Item clicked " + product.toString());
+        onButtonPressed(product);
+
+    }
+
+    public interface OnProductCLickedListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+        public void onProductClicked(int id);
     }
 
 }

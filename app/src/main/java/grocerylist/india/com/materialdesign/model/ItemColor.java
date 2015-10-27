@@ -6,6 +6,8 @@ package grocerylist.india.com.materialdesign.model;
 public class ItemColor {
     private int colorId;
     private String colorName;
+    private String colorCode;
+    private Boolean isSelected;
 
     public int getColorId() {
         return colorId;
@@ -21,5 +23,36 @@ public class ItemColor {
 
     public void setColorName(String colorName) {
         this.colorName = colorName;
+    }
+
+    public String getColorCode() {
+        return colorCode;
+    }
+
+    public void setColorCode(String colorCode) {
+        this.colorCode = colorCode;
+    }
+
+    public Boolean getIsSelected() {
+        return isSelected;
+    }
+
+    public void setIsSelected(Boolean isSelected) {
+        this.isSelected = isSelected;
+    }
+
+    public ItemColor(String colorName, String colorCode, Boolean isSelected) {
+        this.colorCode = colorCode;
+        this.colorName = colorName;
+        this.isSelected = isSelected;
+    }
+
+    @Override
+    public String toString() {
+        return "ItemColor{" +
+                "isSelected=" + isSelected +
+                ", colorName='" + colorName + '\'' +
+                ", colorCode='" + colorCode + '\'' +
+                '}';
     }
 }

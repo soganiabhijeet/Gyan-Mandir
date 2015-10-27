@@ -24,7 +24,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         tabDataArrayList = new ArrayList<>();
 
         tabDataArrayList.add(new TabData(1, context.getResources().getString(R.string.tab_pen)));
-        tabDataArrayList.add(new TabData(2,context.getResources().getString(R.string.tab_canvas)));
+        tabDataArrayList.add(new TabData(2, context.getResources().getString(R.string.tab_canvas)));
         tabDataArrayList.add(new TabData(3, context.getResources().getString(R.string.tab_color)));
 
     }

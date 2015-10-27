@@ -33,7 +33,7 @@ public class ProductAdapter {
         dbHelper.close();
     }
 
-    public void insertProduct(Product product) {
+    public long insertProduct(Product product) {
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.PRODUCT_NAME, product.getProductName());
         values.put(DatabaseHelper.PRODUCT_COMPANY, product.getCompanyName());
@@ -51,7 +51,7 @@ public class ProductAdapter {
             values.put(DatabaseHelper.PRODUCT_HAS_SIZE, 0);
         }
         Log.d(TAG, values.toString());
-        database.insert(DatabaseHelper.TABLE_PRODUCT, null, values);
+        return database.insert(DatabaseHelper.TABLE_PRODUCT, null, values);
     }
 
     public List<Product> getProductListForCategory(Category category) {
@@ -75,7 +75,7 @@ public class ProductAdapter {
             } else {
                 product.setHasSize(true);
             }
-
+            product.setProductId(c.getInt(c.getColumnIndex(DatabaseHelper.PRODUCT_ID)));
             product.setProductName(c.getString(c.getColumnIndex(DatabaseHelper.PRODUCT_NAME)));
             product.setSellingPrice(c.getInt(c.getColumnIndex(DatabaseHelper.PRODUCT_SELLING_PRICE)));
             products.add(product);
@@ -87,7 +87,7 @@ public class ProductAdapter {
 
     public List<Product> getProductListForSearch(String searchQuery) {
         List<Product> products = new ArrayList<>();
-        String query = "SELECT * FROM " + DatabaseHelper.TABLE_PRODUCT + " WHERE " + DatabaseHelper.PRODUCT_NAME + " LIKE " + "'%"+searchQuery+"%'";
+        String query = "SELECT * FROM " + DatabaseHelper.TABLE_PRODUCT + " WHERE " + DatabaseHelper.PRODUCT_NAME + " LIKE " + "'%" + searchQuery + "%'";
         Log.d(TAG, "getProductListForSearch query : " + query);
         Cursor c = database.rawQuery(query, null);
         c.moveToFirst();
@@ -106,7 +106,7 @@ public class ProductAdapter {
             } else {
                 product.setHasSize(true);
             }
-
+            product.setProductId(c.getInt(c.getColumnIndex(DatabaseHelper.PRODUCT_ID)));
             product.setProductName(c.getString(c.getColumnIndex(DatabaseHelper.PRODUCT_NAME)));
             product.setSellingPrice(c.getInt(c.getColumnIndex(DatabaseHelper.PRODUCT_SELLING_PRICE)));
             products.add(product);
@@ -114,6 +114,5 @@ public class ProductAdapter {
         }
 
         return products;
-
     }
 }

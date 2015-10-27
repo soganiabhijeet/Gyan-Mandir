@@ -1,29 +1,39 @@
 package grocerylist.india.com.materialdesign.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
 
 import grocerylist.india.com.materialdesign.R;
 import grocerylist.india.com.materialdesign.adapter.ViewPagerAdapter;
 import grocerylist.india.com.materialdesign.database.DatabaseHandler;
 import grocerylist.india.com.materialdesign.database.adapter.CategoryAdapter;
 import grocerylist.india.com.materialdesign.database.adapter.ProductAdapter;
+import grocerylist.india.com.materialdesign.dialog.SelectColorDialog;
 import grocerylist.india.com.materialdesign.drawer.FragmentDrawer;
+import grocerylist.india.com.materialdesign.fragment.ProductListFragment;
+import grocerylist.india.com.materialdesign.model.ItemColor;
 import grocerylist.india.com.materialdesign.model.Product;
 import grocerylist.india.com.materialdesign.slidingtab.SlidingTabLayout;
 
 /**
  * Created by abhijeetsogani on 9/2/15.
  */
-public class MainActivity extends AppCompatActivity implements DatabaseHandler , FragmentDrawer.FragmentDrawerListener {
+public class MainActivity extends AppCompatActivity implements DatabaseHandler, FragmentDrawer.FragmentDrawerListener, ProductListFragment.OnProductCLickedListener, SelectColorDialog.SelectColorDialogListener {
+    private int counter = 0;
     private Toolbar mToolbar;
     ViewPager pager;
     SlidingTabLayout tabs;
@@ -76,8 +86,17 @@ public class MainActivity extends AppCompatActivity implements DatabaseHandler ,
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem item = menu.findItem(R.id.action_cart);
+        item.getActionView().setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                animate();
+            }
+        });
         return true;
     }
 
@@ -86,26 +105,39 @@ public class MainActivity extends AppCompatActivity implements DatabaseHandler ,
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        switch (item.getItemId()) {
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        if (id == R.id.action_search) {
-            Toast.makeText(getApplicationContext(), "Search action is selected!", Toast.LENGTH_SHORT).show();
-            Intent searchIntent = new Intent(this, SearchActivity.class);
-            startActivity(searchIntent);
-            return true;
+            //noinspection SimplifiableIfStatement
+          /*  case R.id.action_cart:
+                animate();
+                return true;*/
+
+            case R.id.action_search:
+                Intent searchIntent = new Intent(this, SearchActivity.class);
+                startActivity(searchIntent);
+                return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void animate() {
+        counter++;
+        Log.d("MainActivity", "animation called onCreateOptionsMenu" + counter);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        TextView textView = (TextView) findViewById(R.id.cart_layout_number);
+        textView.setText(String.valueOf(counter));
+       /* LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        TextView iv = (TextView) inflater.inflate(R.layout.cart_layout, null);
+        Animation rotation = AnimationUtils.loadAnimation(this, R.anim.zoom);
+        iv.startAnimation(rotation);*/
+
     }
 
     private void testDatabase() {
         initializeAdapter();
         openAdapter();
         addCategory();
-        addProduct();
+        // addProduct();
         closeAdapter();
     }
 
@@ -178,6 +210,26 @@ public class MainActivity extends AppCompatActivity implements DatabaseHandler ,
 
     @Override
     public void onDrawerItemSelected(View view, int position) {
-        Toast.makeText(this,"position "+position,Toast.LENGTH_SHORT).show();
+        switch (position) {
+            case 0:
+                Toast.makeText(this, "position " + position, Toast.LENGTH_SHORT).show();
+            case 1:
+                Intent addProductIntent = new Intent(this, AddProductActivity.class);
+                startActivity(addProductIntent);
+            case 2:
+                Toast.makeText(this, "position " + position, Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+    @Override
+    public void onProductClicked(int id) {
+        TextView textView = (TextView) findViewById(R.id.cart_layout_number);
+        textView.setText(String.valueOf(id));
+    }
+
+    @Override
+    public void onSelectColorInteraction(List<ItemColor> itemColorList) {
+
     }
 }

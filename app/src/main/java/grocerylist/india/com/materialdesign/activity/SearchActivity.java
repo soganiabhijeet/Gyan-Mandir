@@ -32,7 +32,8 @@ public class SearchActivity extends AppCompatActivity {
         searchView = (SearchView) findViewById(R.id.search_products);
         searchContainer = (FrameLayout) findViewById(R.id.product_container);
         //showSoftKeyboard(getApplicationContext());
-        imm.showSoftInput(searchView, InputMethodManager.SHOW_IMPLICIT);
+        imm.showSoftInput(searchView, 0);
+        //imm.showSoftInput(searchView, InputMethodManager.SHOW_FORCED);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -44,8 +45,11 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                executeSearchOperation(newText);
-                return true;
+                if (newText.length() > 2) {
+                    executeSearchOperation(newText);
+                    return true;
+                }
+                return false;
             }
         });
 

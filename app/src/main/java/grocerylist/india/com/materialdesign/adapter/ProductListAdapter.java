@@ -23,28 +23,37 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private List<Product> products = new ArrayList<>();
     private static Context mContext;
     private LayoutInflater layoutInflater;
-    String TAG="ProductListAdapter";
+    private OnAddToCartClicked addToCart;
+    private String TAG = "ProductListAdapter";
 
-    public ProductListAdapter(Context context, List<Product> products) {
+    public ProductListAdapter(Context context, List<Product> products, OnAddToCartClicked mAddToCart) {
         mContext = context;
         this.products = products;
         layoutInflater = ((Activity) context).getLayoutInflater();
+        this.addToCart = mAddToCart;
     }
 
     @Override
     public ProductViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        Log.d(TAG,"onCreateViewHolder");
+        Log.d(TAG, "onCreateViewHolder");
         View view = layoutInflater.inflate(R.layout.product_list_item, viewGroup, false);
         return new ProductViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
-        Log.d(TAG,"onBindViewHolder");
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int i) {
+        Log.d(TAG, "onBindViewHolder");
         ProductViewHolder holder = (ProductViewHolder) viewHolder;
         holder.productPrice.setText(products.get(i).getSellingPrice().toString());
         holder.productCompanyName.setText(products.get(i).getCompanyName());
         holder.productName.setText(products.get(i).getProductName());
+        holder.addToCartImage.setImageResource(R.drawable.heart_selected);
+        holder.addToCartImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addToCart.onAddToCartCLicked(products.get(i));
+            }
+        });
     }
 
     @Override
@@ -63,6 +72,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             productName = (TextView) itemView.findViewById(R.id.productName);
             productCompanyName = (TextView) itemView.findViewById(R.id.productCompany);
             productPrice = (TextView) itemView.findViewById(R.id.productPrice);
+            addToCartImage = (ImageView) itemView.findViewById(R.id.product_save);
         }
+    }
+
+    public interface OnAddToCartClicked {
+        void onAddToCartCLicked(Product productId);
     }
 }

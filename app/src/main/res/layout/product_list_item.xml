@@ -61,11 +61,13 @@
             android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_toRightOf="@+id/product_text_layout">
+
             <ImageView
+                android:id="@+id/product_save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/heart_selected"
-                android:layout_alignParentRight="true"/>
+                android:layout_alignParentRight="true"
+                android:src="@drawable/heart_selected" />
         </RelativeLayout>
 
 

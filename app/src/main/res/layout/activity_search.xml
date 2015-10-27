@@ -8,8 +8,9 @@
     <android.support.v7.widget.SearchView
         android:id="@+id/search_products"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
+        android:layout_height="70dp"
+        android:layout_alignParentRight="true"
+        android:background="@color/colorPrimary"
         android:imeOptions="actionSearch"
         android:queryHint="Enter product you want to search"></android.support.v7.widget.SearchView>
 
@@ -17,7 +18,7 @@
         android:id="@+id/product_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
-        android:layout_below="@id/search_products" />
+        android:layout_below="@id/search_products"
+        android:visibility="visible" />
 
 </RelativeLayout>
