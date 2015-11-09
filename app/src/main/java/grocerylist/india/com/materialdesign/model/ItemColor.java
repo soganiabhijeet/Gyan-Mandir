@@ -47,6 +47,13 @@ public class ItemColor {
         this.isSelected = isSelected;
     }
 
+    public ItemColor(int colorId, String colorName, String colorCode, Boolean isSelected) {
+        this.colorId = colorId;
+        this.colorName = colorName;
+        this.colorCode = colorCode;
+        this.isSelected = isSelected;
+    }
+
     @Override
     public String toString() {
         return "ItemColor{" +

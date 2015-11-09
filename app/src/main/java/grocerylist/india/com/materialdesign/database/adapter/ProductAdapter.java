@@ -16,7 +16,7 @@ import grocerylist.india.com.materialdesign.model.Product;
 /**
  * Created by abhijeetsogani on 10/20/15.
  */
-public class ProductAdapter {
+public class ProductAdapter  {
     private String TAG = "ProductAdapter";
     private SQLiteDatabase database;
     private DatabaseHelper dbHelper;
@@ -115,4 +115,8 @@ public class ProductAdapter {
 
         return products;
     }
+
+
+
+
 }

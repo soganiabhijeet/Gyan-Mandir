@@ -24,11 +24,20 @@
     <string name="tab_canvas">Canvas</string>
     <string name="tab_color">Color</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_search">SearchActivity</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_fragment_drawer">FragmentDrawer</string>
     <string name="title_activity_add_product">AddProductActivity</string>
+
+
+    <string-array name="category_array">
+        <item>@string/tab_pen</item>
+        <item>@string/tab_canvas</item>
+        <item>@string/tab_color</item>
+    </string-array>
+    <string name="title_activity_update_product">UpdateProduct</string>
+    <string name="title_activity_product_history">ProductHistory</string>
 </resources>

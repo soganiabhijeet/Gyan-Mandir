@@ -1,8 +1,11 @@
 package grocerylist.india.com.materialdesign.fragment;
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,6 +16,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import grocerylist.india.com.materialdesign.R;
+import grocerylist.india.com.materialdesign.activity.AddProductActivity;
+import grocerylist.india.com.materialdesign.activity.UpdateProduct;
 import grocerylist.india.com.materialdesign.adapter.ProductListAdapter;
 import grocerylist.india.com.materialdesign.database.DatabaseHandler;
 import grocerylist.india.com.materialdesign.database.adapter.CategoryAdapter;
@@ -21,7 +26,7 @@ import grocerylist.india.com.materialdesign.dialog.SelectColorDialog;
 import grocerylist.india.com.materialdesign.model.Product;
 
 
-public class ProductListFragment extends Fragment implements DatabaseHandler, ProductListAdapter.OnAddToCartClicked {
+public class ProductListFragment extends Fragment implements DatabaseHandler, ProductListAdapter.OnAddToCartClicked, ProductListAdapter.OnProductLongPressed {
     // TODO: Rename and change types of parameters
     public static final String TAB_ID = "id";
     public static final String TAB_TITLE = "title";
@@ -30,6 +35,8 @@ public class ProductListFragment extends Fragment implements DatabaseHandler, Pr
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    public static final String BOOL_IS_UPDATE_PRODUCT = "is_update_product";
+    public static final String PRODUCT_ID="product_id";
     private int id;
     private String TAG = "ProductListFragment";
     private String title;
@@ -40,11 +47,19 @@ public class ProductListFragment extends Fragment implements DatabaseHandler, Pr
     private ProductListAdapter productListAdapter;
     private ArrayList<Product> products;
     private ProductAdapter productAdapter;
+    private AlertDialog onLongPressDialog;
+    private static Product longPressedProduct = null;
     private CategoryAdapter categoryAdapter;
-
+    final CharSequence[] longPressDialogItems = {
+            "Update Product", "View Sale History"
+    };
 
     public ProductListFragment() {
         // Required empty public constructor
+    }
+
+    public static Product getLongClickedProduct() {
+        return longPressedProduct;
     }
 
     // TODO: Rename and change types and number of parameters
@@ -90,7 +105,6 @@ public class ProductListFragment extends Fragment implements DatabaseHandler, Pr
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Product product) {
         if (mListener != null) {
             Log.d(TAG, "Product hasColor " + product.getHasColor());
@@ -111,7 +125,7 @@ public class ProductListFragment extends Fragment implements DatabaseHandler, Pr
         productsRecyclerView = (RecyclerView) view.findViewById(R.id.products_recyclerview);
         linearLayoutManager = new LinearLayoutManager(getActivity());
         productsRecyclerView.setLayoutManager(linearLayoutManager);
-        productListAdapter = new ProductListAdapter(getActivity(), products, this);
+        productListAdapter = new ProductListAdapter(getActivity(), products, this, this);
         productsRecyclerView.setAdapter(productListAdapter);
         initializeProductList(title);
     }
@@ -124,7 +138,7 @@ public class ProductListFragment extends Fragment implements DatabaseHandler, Pr
             if (categoryAdapter.getCategoryFromName(category) != null) {
                 products = (ArrayList<Product>) productAdapter.getProductListForCategory(categoryAdapter.getCategoryFromName(category));
                 //TODO stop creating new adapter everytime
-                productListAdapter = new ProductListAdapter(getActivity(), products, this);
+                productListAdapter = new ProductListAdapter(getActivity(), products, this, this);
                 productsRecyclerView.setAdapter(productListAdapter);
                 Log.d(TAG, "products size for category :" + products.size());
             }
@@ -138,7 +152,7 @@ public class ProductListFragment extends Fragment implements DatabaseHandler, Pr
             mListener = (OnProductCLickedListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement OnDateSelectedListener");
         }
     }
 
@@ -172,7 +186,7 @@ public class ProductListFragment extends Fragment implements DatabaseHandler, Pr
         Log.d("ProductListFragment", "updateListSearch");
         this.searchQuery = searchText;
         products = (ArrayList<Product>) productAdapter.getProductListForSearch(searchText);
-        productListAdapter = new ProductListAdapter(getActivity(), products, this);
+        productListAdapter = new ProductListAdapter(getActivity(), products, this, this);
         productsRecyclerView.setAdapter(productListAdapter);
     }
 
@@ -183,9 +197,45 @@ public class ProductListFragment extends Fragment implements DatabaseHandler, Pr
 
     }
 
+    @Override
+    public void onProductLongPressed(final Product product) {
+        longPressedProduct = product;
+        Log.e(TAG, "Product long pressed " + product.getProductId());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setItems(longPressDialogItems, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                switch (item) {
+                    case 0:
+                        openUpdateProduct(product.getProductId());
+                        break;
+                    case 1:
+                        openProductHistory(product.getProductId());
+                        break;
+                }
+            }
+        });
+        onLongPressDialog = builder.create();
+        onLongPressDialog.show();
+    }
+
+    private void openProductHistory(long productId) {
+        onLongPressDialog.dismiss();
+        Intent openUpdateProduct = new Intent(getActivity(), UpdateProduct.class);
+        startActivity(openUpdateProduct);
+    }
+
+    private void openUpdateProduct(long productId) {
+        onLongPressDialog.dismiss();
+        Intent addProductIntent = new Intent(getActivity(), AddProductActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(BOOL_IS_UPDATE_PRODUCT, true);
+        bundle.putLong(PRODUCT_ID,productId);
+        addProductIntent.putExtras(bundle);
+        startActivity(addProductIntent);
+    }
+
     public interface OnProductCLickedListener {
-        // TODO: Update argument type and name
-        public void onProductClicked(int id);
+        public void onProductClicked(long id);
     }
 
 }

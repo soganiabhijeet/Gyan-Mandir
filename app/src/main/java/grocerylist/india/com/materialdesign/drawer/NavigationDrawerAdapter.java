@@ -16,9 +16,6 @@ import java.util.List;
 
 import grocerylist.india.com.materialdesign.R;
 
-/**
- * Created by Ravi Tamada on 12-03-2015.
- */
 public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDrawerAdapter.MyViewHolder> {
     List<NavDrawerItem> data = Collections.emptyList();
     private LayoutInflater inflater;

@@ -20,9 +20,9 @@
         <com.wrapp.floatlabelededittext.FloatLabeledEditText
             android:id="@+id/product_name_container"
             android:layout_width="match_parent"
-            float:fletTextAppearance="@style/floatlabelededittext"
             android:layout_height="wrap_content"
-            float:fletPadding="10dp">
+            float:fletPadding="10dp"
+            float:fletTextAppearance="@style/floatlabelededittext">
 
             <EditText
                 android:id="@+id/product_name"
@@ -35,9 +35,9 @@
             android:id="@+id/product_selling_price_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            float:fletTextAppearance="@style/floatlabelededittext"
             android:layout_below="@id/product_name_container"
-            float:fletPadding="10dp">
+            float:fletPadding="10dp"
+            float:fletTextAppearance="@style/floatlabelededittext">
 
             <EditText
                 android:id="@+id/product_selling_price"
@@ -54,9 +54,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            float:fletTextAppearance="@style/floatlabelededittext"
             android:layout_below="@id/product_name_container"
-            float:fletPadding="10dp">
+            float:fletPadding="10dp"
+            float:fletTextAppearance="@style/floatlabelededittext">
 
             <EditText
                 android:id="@+id/product_cost_price"
@@ -72,9 +72,9 @@
             android:id="@+id/product_company_name_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            float:fletTextAppearance="@style/floatlabelededittext"
             android:layout_below="@id/product_cost_price_container"
-            float:fletPadding="10dp">
+            float:fletPadding="10dp"
+            float:fletTextAppearance="@style/floatlabelededittext">
 
             <EditText
                 android:id="@+id/product_company"
@@ -83,22 +83,38 @@
                 android:hint="Product Company" />
         </com.wrapp.floatlabelededittext.FloatLabeledEditText>
 
-        <android.support.v7.widget.AppCompatCheckBox
-            android:id="@+id/product_has_size"
-            android:layout_width="wrap_content"
+        <com.wrapp.floatlabelededittext.FloatLabeledEditText
+            android:id="@+id/product_stock_container"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/product_company_name_container"
-            android:layout_marginTop="10dp"
-            android:text="Has Size" />
+            float:fletPadding="10dp"
+            float:fletTextAppearance="@style/floatlabelededittext">
+
+            <EditText
+                android:id="@+id/product_stock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Stock"
+                android:inputType="number" />
+        </com.wrapp.floatlabelededittext.FloatLabeledEditText>
 
         <android.support.v7.widget.AppCompatCheckBox
             android:id="@+id/product_has_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/product_has_size"
+            android:layout_below="@id/product_stock_container"
             android:layout_marginTop="10dp"
             android:text="Has Color" />
 
+
+        <Spinner
+            android:id="@+id/spinner_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/product_has_color"
+            android:minWidth="128dp"
+            android:padding="8dp" />
 
     </RelativeLayout>
 

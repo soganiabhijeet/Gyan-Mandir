@@ -1,10 +1,15 @@
 package grocerylist.india.com.materialdesign.model;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by abhijeetsogani on 10/20/15.
  */
-public class Product {
-    private int productId;
+public class Product implements Serializable {
+
+    private long productId;
     private String productName;
     private String companyName;
     private Boolean hasColor;
@@ -12,12 +17,13 @@ public class Product {
     private Category category;
     private Integer sellingPrice;
     private Integer costPrice;
+    private List<Item> items;
 
-    public int getProductId() {
+    public long getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(long productId) {
         this.productId = productId;
     }
 
@@ -77,7 +83,7 @@ public class Product {
         this.costPrice = costPrice;
     }
 
-    public Product(String productName, String companyName, Boolean hasColor, Boolean hasSize, Category category, Integer sellingPrice, Integer costPrice) {
+    public Product(String productName, String companyName, Boolean hasColor, Boolean hasSize, Category category, Integer sellingPrice, Integer costPrice, ArrayList<Item> items) {
         this.productName = productName;
         this.companyName = companyName;
         this.hasColor = hasColor;
@@ -85,9 +91,10 @@ public class Product {
         this.category = category;
         this.sellingPrice = sellingPrice;
         this.costPrice = costPrice;
+        this.items = items;
     }
-    public Product()
-    {
+
+    public Product() {
 
     }
 }

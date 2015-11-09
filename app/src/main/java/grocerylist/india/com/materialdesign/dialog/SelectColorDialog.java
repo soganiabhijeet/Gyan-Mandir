@@ -52,15 +52,15 @@ public class SelectColorDialog extends DialogFragment implements TextView.OnClic
     }
 
     private void initializeColors() {
-        ItemColor red = new ItemColor("Red", "#F44336", false);
-        ItemColor pink = new ItemColor("Pink", "#E91E63", false);
-        ItemColor yellow = new ItemColor("Yellow", "#FFEB3B", false);
-        ItemColor green = new ItemColor("Green", "#4CAF50", false);
-        ItemColor blue = new ItemColor("Blue", "#2196F3", false);
-        ItemColor violet = new ItemColor("Indigo", "#3F51B5", false);
-        ItemColor orange = new ItemColor("Orange", "#FF9800", false);
-        ItemColor black = new ItemColor("Black", "#000000", false);
-        ItemColor white = new ItemColor("White", "#FFFFFF", false);
+        ItemColor red = new ItemColor(1, "Red", "#F44336", false);
+        ItemColor pink = new ItemColor(2, "Pink", "#E91E63", false);
+        ItemColor yellow = new ItemColor(3, "Yellow", "#FFEB3B", false);
+        ItemColor green = new ItemColor(4, "Green", "#4CAF50", false);
+        ItemColor blue = new ItemColor(5, "Blue", "#2196F3", false);
+        ItemColor violet = new ItemColor(6, "Indigo", "#3F51B5", false);
+        ItemColor orange = new ItemColor(7, "Orange", "#FF9800", false);
+        ItemColor black = new ItemColor(8, "Black", "#000000", false);
+        ItemColor white = new ItemColor(9, "White", "#FFFFFF", false);
         colorList.add(red);
         colorList.add(pink);
         colorList.add(yellow);
@@ -80,7 +80,7 @@ public class SelectColorDialog extends DialogFragment implements TextView.OnClic
             mListener = (SelectColorDialogListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement OnDateSelectedListener");
         }
     }
 
@@ -100,7 +100,6 @@ public class SelectColorDialog extends DialogFragment implements TextView.OnClic
     }
 
     public interface SelectColorDialogListener {
-        // TODO: Update argument type and name
         public void onSelectColorInteraction(List<ItemColor> itemColorList);
     }
 

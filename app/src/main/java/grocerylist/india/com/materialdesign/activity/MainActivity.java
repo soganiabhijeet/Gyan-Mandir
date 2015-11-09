@@ -26,7 +26,6 @@ import grocerylist.india.com.materialdesign.dialog.SelectColorDialog;
 import grocerylist.india.com.materialdesign.drawer.FragmentDrawer;
 import grocerylist.india.com.materialdesign.fragment.ProductListFragment;
 import grocerylist.india.com.materialdesign.model.ItemColor;
-import grocerylist.india.com.materialdesign.model.Product;
 import grocerylist.india.com.materialdesign.slidingtab.SlidingTabLayout;
 
 /**
@@ -42,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements DatabaseHandler, 
     CategoryAdapter categoryAdapter;
     ProductAdapter productAdapter;
     private FragmentDrawer drawerFragment;
+    public static String BOOL_IS_ADD_PRODUCT = "is_add_product";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements DatabaseHandler, 
         categoryAdapter.addCategory(getResources().getString(R.string.tab_color));
     }
 
-    private void addProduct() {
+   /* private void addProduct() {
         Product product = new Product("Camlin Pencil", "Camlin", false, false, categoryAdapter.getCategoryFromName(getResources().getString(R.string.tab_color)), 30, 15);
         productAdapter.insertProduct(product);
         product = new Product("Camlin Canvas", "Camlin", false, false, categoryAdapter.getCategoryFromName(getResources().getString(R.string.tab_canvas)), 30, 15);
@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements DatabaseHandler, 
         product = new Product("Camlin Pen", "Camlin", false, false, categoryAdapter.getCategoryFromName(getResources().getString(R.string.tab_pen)), 30, 15);
         productAdapter.insertProduct(product);
 
-    }
+    }*/
 
     @Override
     public void initializeAdapter() {
@@ -215,15 +215,17 @@ public class MainActivity extends AppCompatActivity implements DatabaseHandler, 
                 Toast.makeText(this, "position " + position, Toast.LENGTH_SHORT).show();
             case 1:
                 Intent addProductIntent = new Intent(this, AddProductActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putBoolean(BOOL_IS_ADD_PRODUCT, true);
+                addProductIntent.putExtras(bundle);
                 startActivity(addProductIntent);
             case 2:
                 Toast.makeText(this, "position " + position, Toast.LENGTH_SHORT).show();
-
         }
     }
 
     @Override
-    public void onProductClicked(int id) {
+    public void onProductClicked(long id) {
         TextView textView = (TextView) findViewById(R.id.cart_layout_number);
         textView.setText(String.valueOf(id));
     }

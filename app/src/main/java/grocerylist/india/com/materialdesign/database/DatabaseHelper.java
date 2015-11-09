@@ -72,13 +72,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             PRODUCT_HAS_COLOR + " INTEGER ," + PRODUCT_HAS_SIZE + " INTEGER)";
 
     private static final String CREATE_TABLE_ITEM = "CREATE TABLE "
-            + TABLE_ITEM + "(" + ITEM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + ITEM_COST_PRICE
-            + " INTEGER ," + ITEM_SELLING_PRICE + " INTEGER ," + COLOR_ID + " INTEGER ," + ITEM_STOCK + " INTEGER ," +
-            SIZE_ID + " INTEGER)";
+            + TABLE_ITEM + "(" + ITEM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLOR_ID + " INTEGER DEFAULT 0," + PRODUCT_ID + " INTEGER,"+ ITEM_STOCK + " INTEGER DEFAULT 0," +
+            PRODUCT_NAME + " TEXT," + COLOR_NAME + " TEXT" +
+            ")";
 
-    private static final String CREATE_TABLE_PRODUCT_ITEM = "CREATE TABLE "
-            + TABLE_PRODUCT_ITEM + "(" + ITEM_ID + " INTEGER PRIMARY KEY ," + PRODUCT_ID
-            + " INTEGER )";
 
     private static final String CREATE_TABLE_ORDER_ITEMS = "CREATE TABLE "
             + TABLE_ORDER + "(" + ORDER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -93,28 +90,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.d(LOG,"onCreate");
-        Log.d(LOG,"CREATE_TABLE_PRODUCT: "+CREATE_TABLE_PRODUCT);
+        Log.d(LOG, "onCreate");
+        Log.d(LOG, "CREATE_TABLE_PRODUCT: " + CREATE_TABLE_PRODUCT);
         db.execSQL(CREATE_TABLE_CATEGORY);
         db.execSQL(CREATE_TABLE_ITEMSIZE);
         db.execSQL(CREATE_TABLE_ITEMCOLOR);
         db.execSQL(CREATE_TABLE_PRODUCT);
         db.execSQL(CREATE_TABLE_ITEM);
-        db.execSQL(CREATE_TABLE_PRODUCT_ITEM);
         db.execSQL(CREATE_TABLE_ORDER_ITEMS);
     }
 
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.d(LOG,"onUpgrade");
+        Log.d(LOG, "onUpgrade");
         // on upgrade drop older tables
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ITEMCOLOR);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ITEMSIZE);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CATEGORY);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCT);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ITEM);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCT_ITEM);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ORDER);
         // create new tables
         onCreate(db);
